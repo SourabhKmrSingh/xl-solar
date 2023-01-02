@@ -1,0 +1,57 @@
+RewriteEngine On
+
+ErrorDocument 403 error/
+ErrorDocument 404 error/
+ErrorDocument 500 error/
+
+#For Rewrite url of dynamic page
+RewriteRule ^page/([^/]*)/$ /xl-solar/page.php?id=$1 [L]
+RewriteRule ^section/([^/]*)/$ /xl-solar/section.php?id=$1 [L]
+RewriteRule ^section/([^/]*)/([^/]*)/([^/]*)/$ /xl-solar/section.php?id=$1&pagesize=$2&page=$3 [L]
+RewriteRule ^section/([^/]*)/([^/]*)/$ /xl-solar/section-detail.php?pageid=$1&id=$2 [L]
+RewriteRule ^products/([^/]*)/$ /xl-solar/product-detail.php?id=$1 [L]
+RewriteRule ^products/([^/]*)/([^/]*)/$ /xl-solar/product-detail.php?id=$1&id2=$2 [L]
+
+#For remove www above domain name
+#RewriteCond %{HTTP_HOST} ^www.sunlief [NC]
+#RewriteRule ^(.*)$ https://sunlief/$1 [L,R=301]
+
+#For add www above domain name
+RewriteCond %{HTTP_HOST} ^sunlief [NC]
+RewriteRule ^(.*)$ https://www.sunlief/$1 [L,R=301,NC]
+
+#For Remove .php and add slash at the end of URL
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]+)/$ $1.php
+RewriteRule ^([^/]+)/([^/]+)/$ /$1/$2.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
+RewriteRule (.*)$ /$1/ [R=301,L]
+
+#Block all HTTP methods except GET and POST
+<LimitExcept GET POST>
+deny from all
+</LimitExcept>
+
+#Clickjacking: X-Frame-Options header missing
+Header set X-Frame-Options SAMEORIGIN
+
+#Content-Security-Policy methods
+Header set X-Content-Security-Policy "allow 'self'; media-src *; img-src *; script-src 'self' https://ajax.googleapis.com; style-src 'self';" 
+
+#prevent mime based attacks
+Header set X-Content-Type-Options "nosniff"
+
+#x-xss-protection header
+Header set X-XSS-Protection "1; mode=block"
+
+#TRACE method
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|OPTIONS)
+RewriteRule .* - [F]
+
+AddCharset UTF-8 .html .php
+
+<IfModule php5_module>
+    php_flag session.cookie_httponly on
+</IfModule>

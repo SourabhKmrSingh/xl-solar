@@ -1,0 +1,1 @@
+<?php echo $validation->db_field_validate($configRow['meta_title']); ?>

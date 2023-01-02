@@ -1,0 +1,36 @@
+RewriteEngine On
+
+ErrorDocument 403 /cms/be/home.php
+ErrorDocument 404 /cms/be/home.php
+ErrorDocument 500 /cms/be/home.php
+
+#For add www above domain name
+#RewriteCond %{HTTP_HOST} ^domain.com [NC]
+#RewriteRule ^(.*)$ http://www.domain.com/$1 [L,R=301,NC]
+
+#Block all HTTP methods except GET and POST
+<LimitExcept GET POST>
+deny from all
+</LimitExcept>
+
+#Clickjacking: X-Frame-Options header missing
+Header set X-Frame-Options SAMEORIGIN
+
+#Content-Security-Policy methods
+Header set X-Content-Security-Policy "allow 'self'; media-src *; img-src *; script-src 'self' https://ajax.googleapis.com; style-src 'self';" 
+
+#prevent mime based attacks
+Header set X-Content-Type-Options "nosniff"
+
+#x-xss-protection header
+Header set X-XSS-Protection "1; mode=block"
+
+#TRACE method
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|OPTIONS)
+RewriteRule .* - [F]
+
+AddCharset UTF-8 .html .php
+
+<IfModule php5_module>
+    php_flag session.cookie_httponly on
+</IfModule>

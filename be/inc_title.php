@@ -1,0 +1,1 @@
+<title><?php echo $validation->db_field_validate($configRow['cms_title']); ?></title>
