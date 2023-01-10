@@ -30,7 +30,8 @@ a
 #page-wrapper {
     width: 100%;
     padding: 0;
-    background-color: #fff;
+    background-color: #f7f7f7;
+	min-height: 100vh;
 }
 
 @media(min-width:992px) {
@@ -256,7 +257,7 @@ ul.alert-dropdown {
 /* Custom Colored Panels */
 
 .huge {
-    font-size: 40px;
+    font-size: 35px;
 	line-height: normal;
 }
 .card-heading

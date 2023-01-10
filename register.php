@@ -8,7 +8,7 @@ if($_SESSION['regid'] != "")
 }
 
 $pageid = "register";
-$pageResult = $db->view('*', 'rb_pages', 'pageid', "and title_id='$pageid'", '', '1');
+$pageResult = $db->view('*', 'rb_pages', 'pageid', "and title_idr='$pageid'", '', '1');
 if($pageResult['num_rows'] == 0)
 {
     header("Location: {$base_url}error{$suffix}");

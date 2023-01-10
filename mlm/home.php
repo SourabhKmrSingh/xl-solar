@@ -2,12 +2,15 @@
 include_once("inc_config.php");
 include_once("login_user_check.php");
 
+
 $_SESSION['active_menu'] = "dashboard";
 $membership_id = $_SESSION['mlm_membership_id'];
 
-$registerResult = $db->view('regid,members,wallet_total,wallet_money,total_debit,membership_id,createdate,createtime,rewardid', 'mlm_registrations', 'regid', " and regid = '$regid'");
+$registerResult = $db->view('regid,sponsor_id, status, members,wallet_total,wallet_money,total_debit,membership_id,createdate,createtime,rewardid', 'mlm_registrations', 'regid', " and regid = '$regid'");
 $registerRow = $registerResult['result'][0];
 
+
+$businessVolumeResult = $db->view("sum(business_volume) as total_amount", "rb_purchases", "purchaseid", " and income_type = 'repurchase' and tracking_status = 'delivered' and invoicedate = '$createdate'");
 
 $membership_id = $registerRow['membership_id'];
 
@@ -16,7 +19,7 @@ $TotalMember = $TotalMemberResult['num_rows'];
 
 
 
-$creditResult = $db->view("SUM(amount) as total_credit_amount", "mlm_ewallet", "ewalletid", "and type='credit' and regid = '$regid' and reason='Referral Bonus'");
+$creditResult = $db->view("SUM(amount) as total_credit_amount", "mlm_ewallet", "ewalletid", "and type='credit' and regid = '$regid' and reason='REPURCHASE INCOME'");
 $creditRow = $creditResult['result'][0];
 
 
@@ -121,11 +124,31 @@ $totalActiveMember = 0;
 	<?php }?>
 	
 	<div CLASS="row">
-	
-		<div CLASS="col-lg-3 col-md-6 mb-3">
+		<div CLASS="col-lg-3 col-md-6 mb-1 mb-md-0 ">
+			<div class="card overflow-hidden" style="max-height: 165px;border-radius:5px;">
+				<div class="card-heading  bg-info text-light">
+					<div class="row">
+						<div class="col">
+							<h6 class=""><?php echo $validation->db_field_validate($registerRow['first_name'] . ' ' . $registerRow['last_name']); ?></h6>
+							<h6 class="mb-2 number-font">Membership ID: <?php echo $validation->db_field_validate($registerRow['membership_id']); ?></h6>
+							<p class=" mb-0">
+								<span class="">Sponsor ID: <?php echo $validation->db_field_validate($registerRow['sponsor_id']); ?></span>
+							</p>
+							<p class=" mb-0">
+								<span class="font-weight-bold">Status: <?php echo $validation->db_field_validate(ucfirst($registerRow['status'])); ?></span>&nbsp;&nbsp;&nbsp;
+							</p>
+
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div><br>
+
+		<div CLASS="col-lg-3 col-md-6 mb-1">
 			<div CLASS="card card-blue">
 				<div CLASS="card-heading bg-info">
-					<div CLASS="row pt-3 pb-3">
+					<div CLASS="row ">
 						<div CLASS="col-3 ">
 							<i CLASS="fa fa-network-wired fa-5x"></i>
 						</div>
@@ -135,60 +158,85 @@ $totalActiveMember = 0;
 						</div> 	
 					</div>
 				</div>
+				<a HREF="downline_member_view.php">
+					<div CLASS="card-footer">
+						<span CLASS="float-left">View All</span>
+						<span CLASS="float-right"><i CLASS="fa fa-arrow-circle-right"></i></span>
+						<div CLASS="clearfix"></div>
+					</div>
+				</a> 	
 				
 			</div>
 		</div>
 		
-		<div CLASS="col-lg-3 col-md-6 mb-3 mb-md-0">
+		<div CLASS="col-lg-3 col-md-6 mb-1 mb-md-0">
 			<div CLASS="card card-blue">
 				<div CLASS="card-heading">
-					<div CLASS="row  pt-3 pb-3">
+					<div CLASS="row ">
 						<div CLASS="col-3">
 						<i class="fas fa-money-bill fa-5x"></i>
 						</div>
 						<div CLASS="col-9 text-right">
-							<div CLASS="huge">₹ <?php echo $registerRow['wallet_total']; ?></div>
+							<div CLASS="huge">₹<?php echo $registerRow['wallet_total']; ?></div>
 							<div>Total Income!</div>
 						</div> 	
 					</div>
 				</div>
-				
+				<a HREF="ewallet_view.php?type=credit">
+					<div CLASS="card-footer">
+						<span CLASS="float-left">View All</span>
+						<span CLASS="float-right"><i CLASS="fa fa-arrow-circle-right"></i></span>
+						<div CLASS="clearfix"></div>
+					</div>
+				</a>
 			</div>
 		</div>
-		<div CLASS="col-lg-3 col-md-6 mb-3 mb-md-0">
+		<div CLASS="col-lg-3 col-md-6 mb-1 mb-md-0">
 			<div CLASS="card card-blue">
 				<div CLASS="card-heading">
-					<div CLASS="row  pt-3 pb-3">
+					<div CLASS="row">
 						<div CLASS="col-3">
 						<i class="fas fa-money-bill fa-5x"></i>
 						</div>
 						<div CLASS="col-9 text-right">
-							<div CLASS="huge">₹ <?php echo $registerRow['wallet_money']; ?></div>
+							<div CLASS="huge">₹<?php echo $registerRow['wallet_money']; ?></div>
 							<div>Total Wallet Balance!</div>
 						</div> 	
 					</div>
 				</div>
-				
+				<a HREF="wallet_transfer_view.php">
+					<div CLASS="card-footer ">
+						<span CLASS="float-left">Transfer Money</span>
+						<span CLASS="float-right"><i CLASS="fa fa-arrow-circle-right"></i></span>
+						<div CLASS="clearfix"></div>
+					</div>
+				</a>
 			</div>
 		</div>
-		<div CLASS="col-lg-3 col-md-6 mb-3 mb-md-0">
+		<div CLASS="col-lg-3 col-md-6 mb-1 mb-md-0">
 			<div CLASS="card card-green">
 				<div CLASS="card-heading">
-					<div CLASS="row  pt-3 pb-3">
+					<div CLASS="row">
 						<div CLASS="col-3">
 						<i class="fas fa-money-bill fa-5x"></i>
 						</div>
 						<div CLASS="col-9 text-right">
-							<div CLASS="huge">₹ <?php echo $totalwithdrawn; ?></div>
+							<div CLASS="huge">₹<?php echo $totalwithdrawn; ?></div>
 							<div>Total Withdrawn !</div>
 						</div> 	
 					</div>
 				</div>
-				
+				<a HREF="ewallet_request_view.php">
+					<div CLASS="card-footer ">
+						<span CLASS="float-left">View All</span>
+						<span CLASS="float-right"><i CLASS="fa fa-arrow-circle-right"></i></span>
+						<div CLASS="clearfix"></div>
+					</div>
+				</a> 
 			</div>
 		</div>
 
-		<div CLASS="col-lg-3 col-md-6 mb-3 mb-md-0">
+		<div CLASS="col-lg-3 col-md-6 mb-1 mb-md-0">
 			<div CLASS="card card-blue">
 				<div CLASS="card-heading">
 					<div CLASS="row">
@@ -202,8 +250,8 @@ $totalActiveMember = 0;
 						
 					</div>
 				</div>
-				<a HREF="genealogy.php?direct=1">
-					<div CLASS="card-footer p-2">
+				<a HREF="direct_member_view.php">
+					<div CLASS="card-footer ">
 						<span CLASS="float-left">View All</span>
 						<span CLASS="float-right"><i CLASS="fa fa-arrow-circle-right"></i></span>
 						<div CLASS="clearfix"></div>
@@ -222,11 +270,11 @@ $totalActiveMember = 0;
 						</div>
 						<div CLASS="col-9 text-right">
 							<div CLASS="huge">&#8377;<?php echo $validation->price_format($creditRow['total_credit_amount']); ?></div>
-							<div>Direct Income!</div>
+							<div>Repurchase Income!</div>
 						</div>
 					</div>
 				</div>
-				<a HREF="ewallet_view.php?type=credit&&reason=Referral Bonus">
+				<a HREF="ewallet_view.php?type=credit&reason=REPURCHASE INCOME">
 					<div CLASS="card-footer">
 						<span CLASS="float-left">View All</span>
 						<span CLASS="float-right"><i CLASS="fa fa-arrow-circle-right"></i></span>
@@ -249,11 +297,34 @@ $totalActiveMember = 0;
 						</div>
 					</div>
 				</div>
-				<a HREF="ewallet_view.php?reason=LEVEL INCOME">
+				<a HREF="level_income_view.php">
 					<div CLASS="card-footer">
-						<span CLASS="float-left">View All</span>
+						<span CLASS="float-left">Earn More</span>
 						<span CLASS="float-right"><i CLASS="fa fa-arrow-circle-right"></i></span>
 						<div CLASS="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<div CLASS="col-lg-4 col-md-6 mb-4">
+			<div CLASS="card card-green">
+				<div CLASS="card-heading bg-success">
+					<div CLASS="row">
+						<div CLASS="col-3">
+							<i CLASS="fas fa-wallet fa-5x"></i>
+						</div>
+						<div CLASS="col-9 text-right">
+							<div CLASS="huge">&#8377;<?php echo $validation->price_format($businessVolumeResult['result'][0]['total_amount']); ?></div>
+							<div>Company Daily Repurchasing !!</div>
+						</div>
+					</div>
+				</div>
+				<a HREF="javascript:void(0);" >
+					<div CLASS="card-footer pb-3 mb-3">
+						<!-- <span CLASS="float-left">View All</span>
+						<span CLASS="float-right"><i CLASS="fa fa-arrow-circle-right"></i></span>
+						<div CLASS="clearfix"></div> -->
 					</div>
 				</a>
 			</div>

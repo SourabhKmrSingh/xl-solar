@@ -6,7 +6,7 @@ ini_set('memory_limit', '512M');
 
 // each client should remember their session id for EXACTLY 4 hours
 session_set_cookie_params(14400);
-error_reporting(0);
+error_reporting(1);
 
 @ob_start();
 @session_start();
@@ -24,12 +24,20 @@ include("class.phpexcel.php");
 $connect->query("SET NAMES 'utf8'");
 
 $configQueryResult = $db->view('*', 'mlm_config', 'configid', "", "configid desc");
+$configQueryResult2 = $db->view('*', 'rb_config', 'configid', "", "configid desc");
+
 if(!$configQueryResult)
 {
 	echo mysqli_error($connect);
 	exit();
 }
+if(!$configQueryResult2)
+{
+	echo mysqli_error($connect);
+	exit();
+}
 $configRow = $configQueryResult['result'][0];
+$configRow2 = $configQueryResult2['result'][0];
 
 if($configRow['timezone'] != "")
 {

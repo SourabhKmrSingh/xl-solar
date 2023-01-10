@@ -252,7 +252,7 @@ if(isset($_GET['q']))
 					{
 					?>
 						<div class="image-preview">
-							<a href="<?php echo IMG_MAIN_LOC; echo $validation->db_field_validate($img); ?>" target="_blank"><img src="<?php echo IMG_THUMB_LOC; echo $validation->db_field_validate($img); ?>" title="<?php echo $validation->db_field_validate($img); ?>" alt="<?php echo $validation->db_field_validate($img); ?>" class="image-preview-img" /></a>
+							<a href="<?php echo IMG_MAIN_LOC; echo $validation->db_field_validate($img); ?>" target="_blank"><img src="<?php echo IMG_MAIN_LOC; echo $validation->db_field_validate($img); ?>" title="<?php echo $validation->db_field_validate($img); ?>" alt="<?php echo $validation->db_field_validate($img); ?>" class="image-preview-img" /></a>
 							<br />
 							<a href="dynamic_record_form.php?mode=edit&recordid=<?php echo $recordid; ?>&imgName=<?php echo $img; ?>&q=imgdel" class="del_link" onClick="return del();">Delete</a>
 						</div>

@@ -112,6 +112,10 @@ else if($mode == "edit")
 	{
 		$fields['invoicedate'] = $createdate;
 		$fields['record_check'] = 1;
+		
+
+		$message = "Hi {$billing_first_name} {$billing_last_name}, \n\nYour Order with Order ID : {$refno_custom} has been successfully delivered. \n\nThankyou for using our services.\nXL Solar";
+		$send = WhatsApp::sendMSG("+91{$billing_mobile}", $message);
 	}
 	
 	$fields['userid_updt'] = $userid;
@@ -131,6 +135,16 @@ else if($mode == "edit")
 		$checkPurchaseRow = $checkPurchaseResult['result'][0];
 		$refno_custom = $checkPurchaseRow['refno_custom'];
 		$wallet_money = $checkPurchaseRow['wallet_money'];
+
+	
+		if(!$purchaseResult)
+		{
+			echo "Order is not placed! Consult Administrator";
+			exit();
+		}
+
+		$message = "Hi {$billing_first_name} {$billing_last_name}, \n\nYour Order with Order ID : {$refno_custom} has been cancelled.\n\nThank you\nXL Solar";
+		$send = WhatsApp::sendMSG("+91{$billing_mobile}", $message);
 		
 		$productPurchaseResult = $db->view("productid,variantid,quantity", "rb_purchases", "purchaseid", "and refno_custom='{$refno_custom}'", 'purchaseid desc');
 		
@@ -183,16 +197,82 @@ else if($mode == "edit")
 	if($old_invoicedate == "" and $tracking_status == "delivered" and $sponsor_id != "" && $record_check == "0")
 	{
 
-		$purchaseQueryResult = $db->view('tracking_status, final_price, price, shipping, coupon_discount, taxamount', 'rb_purchases', 'purchaseid', "and purchaseid = '$purchaseid'");
-		$purchaseRow = $purchaseQueryResult['result'][0];
+		
+		$purchaseQueryResult = $db->view('tracking_status, business_volume, final_price, price, shipping, coupon_discount, taxamount', 'rb_purchases', 'purchaseid', "and refno_custom = '$refno_custom' and income_type  = 'level'");
+
+		// Update First Purchase 
+		$db->update("mlm_registrations", array('first_purchase'=> '1', "status" => 'active'), array('membership_id' =>$membership_id));
+
+		$total_amount = 0;
 
 
-		$total_amount =  $purchaseRow['final_price'];
+		// Check Remaining Distribution
+
+
+		$remainDistribution = $db->view("*", "mlm_distribution_level", "distributionId", " and status ='unpaid'");
+
+		if($remainDistribution['num_rows'] >= 1){
+
+			foreach($remainDistribution['result'] as $remainDistributionRow){
+
+				$remianMemberShipid = $remainDistributionRow['membership_id'];
+				$curMemberResult = $db->view("*", "mlm_registrations", 'regid', " and membership_id ='$remianMemberShipid'");
+
+				if($curMemberResult['result'][0]['first_purchase'] == '1'){
+					
+					$checkMembersCondition = $db->view("*", "mlm_registrations", "regid", " and first_purchase ='1' and sponsor_id = '$remianMemberShipid'");
+
+					if($checkMembersCondition['num_rows'] >= $remainDistributionRow['levelid']){
+
+						$amount = $remainDistributionRow['amount'];
+						$remcMemberid = $remainDistributionRow['ownmemberid'];
+						$regid = $remainDistributionRow['regid'];
+						$refno = substr(md5(rand(1, 99999)),0,10);
+						$reason = $remainDistributionRow['reason'];
+						$description = $remainDistributionRow['discription'];
+						$status = "fullfilled";
+
+						$fields = array('regid' => $remainDistributionRow['regid'], "level" => $remainDistributionRow['levelid'], "purchaseid" => $remainDistributionRow['purchaseid'],'membership_id' => $remainDistributionRow['membership_id'], 'username' => $remainDistributionRow['username'], 'refno' => $refno, 'amount' => $amount, 'type' => 'debit', 'reason' => $reason, 'description' => $description, 'status' => $status,  'createtime' => $createtime, 'createdate' => $createdate);
+
+						$db->insert("mlm_transactions", $fields);
+
+						$fields2 = array('regid' => $remainDistributionRow['regid'], "level" => $remainDistributionRow['levelid'], "purchaseid" => $remainDistributionRow['purchaseid'], 'membership_id' => $remainDistributionRow['membership_id'], 'username' => $remainDistributionRow['username'], 'refno' => $refno, 'amount' => $amount, 'type' => 'credit', 'reason' => $reason, 'description' => $description, 'status' => $status, 'createtime' => $createtime, 'createdate' => $createdate);
+						
+						$db->insert("mlm_ewallet", $fields2);
+						
+						$db->custom("update mlm_registrations set wallet_money = wallet_money+{$amount}, wallet_total = wallet_total+{$amount} where regid='{$regid}'");
+
+						$distributionId = $remainDistributionRow['distributionId'];
+						$db->custom("update mlm_distribution_level set status ='paid' where distributionId='{$distributionId}'");
+
+					}
+				}
+
+
+
+
+			}
+		}
+
+
+		// Level Income Distribution - Total Amount
+
+		if($purchaseQueryResult['num_rows'] >= 1){
+
+			foreach($purchaseQueryResult['result'] as $purchaseRow)
+			{
+				if($purchaseRow['business_volume'] != "" && $purchaseRow['business_volume'] != 0){
+					$total_amount +=  $purchaseRow['business_volume'];
+				}
+			}
+		
+		}
+
 				
 		$slr = 1; 
 		$cMemberid = $membership_id;
 		
-		//Level Income 
+		//Level Income distribution
 		function getAllDownlines($parent)
 		{
 			
@@ -215,24 +295,45 @@ else if($mode == "edit")
 						$levelPercentage = $levelRow['percentage'];
 
 						if($levelPercentage != "0.00" && $levelPercentage != "" && $total_amount != "0.00" && $total_amount != ""){
-							
+
 							$amount = round($total_amount * ($levelPercentage / 100));
 							$regid = $memberRow['regid'];
 							$refno = substr(md5(rand(1, 99999)),0,10);
 							$reason = "LEVEL INCOME";
 							$description = "Level {$slr} Income for Purchase By {$cMemberid}";
 							$status = "fullfilled";
-
-							$fields = array('regid' => $memberRow['regid'], "level" => $levelRow['levelid'], "purchaseid" => $purchaseid,'membership_id' => $memberRow['membership_id'], 'username' => $memberRow['username'], 'refno' => $refno, 'amount' => $amount, 'type' => 'debit', 'reason' => $reason, 'description' => $description, 'status' => $status,  'createtime' => $createtime, 'createdate' => $createdate);
-
-
-							$db->insert("mlm_transactions", $fields);
-
-							$fields2 = array('regid' => $memberRow['regid'], "level" => $levelRow['levelid'], "purchaseid" => $purchaseid, 'membership_id' => $memberRow['membership_id'], 'username' => $memberRow['username'], 'refno' => $refno, 'amount' => $amount, 'type' => 'credit', 'reason' => $reason, 'description' => $description, 'status' => $status, 'createtime' => $createtime, 'createdate' => $createdate);
+							$checkMembershipId = $memberRow['membership_id'];
 							
-							$db->insert("mlm_ewallet", $fields2);
+
+							// Condition - Check Members are completed or not
+
+							$checkMembersCondition = $db->view("*", "mlm_registrations", "regid", " and first_purchase ='1' and sponsor_id = '$checkMembershipId'");
+
+							if($memberRow['first_purchase'] == "1" && $checkMembersCondition['num_rows'] >= $slr){
+
+								$fields = array('regid' => $memberRow['regid'], "level" => $levelRow['levelid'], "purchaseid" => $purchaseid,'membership_id' => $memberRow['membership_id'], 'username' => $memberRow['username'], 'refno' => $refno, 'amount' => $amount, 'type' => 'debit', 'reason' => $reason, 'description' => $description, 'status' => $status,  'createtime' => $createtime, 'createdate' => $createdate);
+
+								$db->insert("mlm_transactions", $fields);
+
+								$fields2 = array('regid' => $memberRow['regid'], "level" => $levelRow['levelid'], "purchaseid" => $purchaseid, 'membership_id' => $memberRow['membership_id'], 'username' => $memberRow['username'], 'refno' => $refno, 'amount' => $amount, 'type' => 'credit', 'reason' => $reason, 'description' => $description, 'status' => $status, 'createtime' => $createtime, 'createdate' => $createdate);
+								
+								$db->insert("mlm_ewallet", $fields2);
+								
+								$db->custom("update mlm_registrations set wallet_money = wallet_money+{$amount}, wallet_total = wallet_total+{$amount} where regid='{$regid}'");
+
+								$distributionArray = array('refno' => $refno, 'regid' => $memberRow['regid'], 'membership_id' =>  $memberRow['membership_id'], 'username' => $memberRow['username'], 'purchaseid' => $purchaseid, 'ownmemberid' => $cMemberid, 'amount' => $amount, 'levelid' => $levelRow['levelid'], 'reason' => $reason, 'discription' => $description, 'status' => 'paid', 'createdate' => $createdate, 'createtime' => $createtime);
+
+								$db->insert("mlm_distribution_level", $distributionArray);
+								
+							}else{
+								
+								$distributionArray = array('refno' => $refno, 'regid' => $memberRow['regid'], 'membership_id' =>  $memberRow['membership_id'], 'username' => $memberRow['username'], 'purchaseid' => $purchaseid, 'ownmemberid' => $cMemberid, 'amount' => $amount, 'levelid' => $levelRow['levelid'], 'reason' => $reason, 'discription' => $description, 'status' => 'unpaid', 'createdate' => $createdate, 'createtime' => $createtime);
+
+								$db->insert("mlm_distribution_level", $distributionArray);
+
+
+							}
 							
-							$db->custom("update mlm_registrations set wallet_money = wallet_money+{$amount}, wallet_total = wallet_total+{$amount} where regid='{$regid}'");
 
 						}
 					

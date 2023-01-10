@@ -52,4 +52,6 @@ else if(strpos($full_url,'javascript') !== false)
 	header("Location: $err_redirect_url");
 	exit();
 }
+
+
 ?>

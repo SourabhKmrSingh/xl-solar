@@ -97,7 +97,7 @@ $csrf_token = $_SESSION['csrf_token'];
 
                 	<hr class="mt-3 mb-5 mt-md-1">
                 	<div class="touch-container row justify-content-center">
-                        <div class="col-md-12 d-flex justify-content-center align-items-center border-bottom-1 certificate-container">
+                        <!-- <div class="col-md-12 d-flex justify-content-center align-items-center border-bottom-1 certificate-container">
                             <img src="<?php echo BASE_URL;?>uploads/logo-registration.jpg" alt="" width="80">
                            <div class="d-flex justify-content-center align-items-center certificate">
                                 <a href="<?php echo BASE_URL;?>uploads/CERTIFICATEOFINCORPORATION.PDF" class='ml-4'> CERTIFICATE OF INCORPORATION</a>
@@ -105,7 +105,7 @@ $csrf_token = $_SESSION['csrf_token'];
                                 <a href="<?php echo BASE_URL;?>uploads/pancard.pdf" class='ml-4'> PANCARD</a>
                                 <a href="<?php echo BASE_URL;?>uploads/pannumber.pdf" class='ml-4'> PAN NUMBER</a>
                            </div>
-                        </div>
+                        </div> -->
                 		<div class="col-md-9 col-lg-7">
                 			<div class="text-center">
                 			<h2 class="title mb-1">Get In Touch</h2><!-- End .title mb-2 -->

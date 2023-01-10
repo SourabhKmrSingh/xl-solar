@@ -216,7 +216,7 @@ $csrf_token = $_SESSION['csrf_token'];
                         <div class="col-md-6 form-group">
                             <label for="email">Email-ID *</label>
                             <input class="form-control" name="email" id="email" type="email"
-                                value="<?php echo $_SESSION['email']; ?>" />
+                                value="<?php echo $_SESSION['email']; ?>" required />
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="password">Password *</label>

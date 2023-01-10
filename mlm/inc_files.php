@@ -16,6 +16,7 @@
 <script TYPE="TEXT/JAVASCRIPT" SRC="admin/assets/js/editor.js"></script>
 <script TYPE="TEXT/JAVASCRIPT" SRC="admin/assets/js/custom.js"></script>
 <link REL="STYLESHEET" HREF="admin/assets/css/chosen.css" />
+<link REL="STYLESHEET" HREF="admin/assets/css/card.css" />
 <script TYPE="TEXT/JAVASCRIPT" SRC="admin/assets/js/chosen.js"></script>
 
 <script>
@@ -35,12 +36,22 @@ $(document).ready(function(){
 </script>
 
 <script>
+
+
 $(window).bind("load", function(){
 	$.notify("<?php echo @$_SESSION['success_msg']; ?>", { className: 'success', autoHide: true, autoHideDelay: 8000 });
+
+	<?php if($_SESSION['error_msg'] != "Please login first!")
+	{
+	?>
 	$.notify("<?php echo @$_SESSION['error_msg']; ?>", { className: 'error', autoHide: true, autoHideDelay: 8000 });
+
+	<?php }?>
 });
 </script>
 <?php
+
 @$_SESSION['success_msg'] = "";
 @$_SESSION['error_msg'] = "";
+
 ?>

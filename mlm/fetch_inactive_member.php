@@ -8,11 +8,8 @@ if(isset($_POST['membershipid'])){
 
     $memberDetails = $memberDetailsQuery['result'][0];
     if($memberDetailsQuery['num_rows'] >= 1){
-        if($memberDetails['status'] == "active"){
-            echo $memberDetails['status'];
-        }else{
-            echo json_encode(array('username'=>$memberDetails['username'],'mobile'=>$memberDetails['mobile']));
-        }
+        
+        echo json_encode(array('username'=>$memberDetails['username'],'mobile'=>$memberDetails['mobile']));
        
     }else{
         echo $memberDetailsQuery['num_rows'];

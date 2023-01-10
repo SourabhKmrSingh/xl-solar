@@ -11,11 +11,37 @@
 <!--<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>-->
 <script type="text/javascript" src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="assets/js/notify.min.js"></script>
+<link rel="stylesheet" href="assets/css/chosen.css" />
 <link rel="stylesheet" href="assets/css/style.css" />
 <link REL="STYLESHEET" HREF="assets/css/editor.css" />
 <script SRC="assets/tinymce/tinymce.min.js"></script>
 <script TYPE="TEXT/JAVASCRIPT" SRC="assets/js/editor.js"></script>
 <script TYPE="TEXT/JAVASCRIPT" SRC="assets/js/custom.js"></script>
+<script TYPE="TEXT/JAVASCRIPT" SRC="assets/js/chosen.js"></script>
+<script>
+
+$(document).ready(function(){
+
+	$(".chosen").chosen({
+
+		disable_search_threshold: 10,
+
+		no_results_text: "No record found!"
+
+	});
+
+});
+
+function isNumberKey(evt)
+{
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode != 45  && charCode > 31 && (charCode < 48 || charCode > 57))
+    return false;
+
+    return true;
+}
+
+</script>
 
 <script>
 $(window).bind("load", function(){

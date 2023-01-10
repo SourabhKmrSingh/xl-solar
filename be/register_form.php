@@ -183,7 +183,7 @@ function passwordmatch()
 			<label for="mobile">Mobile No.</label>
 		</div>
 		<div class="col-sm-9">
-			<input type="text" name="mobile" id="mobile" class="form-control" value="<?php if($mode == 'edit') echo $validation->db_field_validate($registerRow['mobile']); ?>" />
+			<input type="text" maxlength="10" minlength="10" onkeypress="return isNumberKey(event);" name="mobile" id="mobile" class="form-control" value="<?php if($mode == 'edit') echo $validation->db_field_validate($registerRow['mobile']); ?>" />
 		</div>
 	</div>
 	

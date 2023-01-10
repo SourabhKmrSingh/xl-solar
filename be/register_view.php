@@ -109,7 +109,8 @@ echo $validation->search_filter_enable();
 			<p class="pt-2">From&nbsp;</p> <input type="date" name="datefrom" class="form-control mb_inline mb-2" placeholder="From" value="<?php echo $datefrom; ?>" />
 			<p class="pt-2">To&nbsp;</p> <input type="date" name="dateto" class="form-control mb_inline mb-2" placeholder="To" value="<?php echo $dateto; ?>" />
 			<input type="submit" value="Filter" class="btn btn-default mb_inline btn-sm btn_submit ml-sm-2 ml-md-0 mb-2 mr-1" />
-			<a href="register_view.php" class="btn btn-default mb_inline btn-sm btn_delete ml-sm-2 ml-md-0 mb-2">Clear</a>
+			<a href="register_view.php" class="btn btn-default mb_inline btn-sm btn_delete ml-sm-2 ml-md-0 mb-2 mr-1">Clear</a>
+			<a href="send_msg.php" class="btn btn-success  btn-sm  bg-success ml-sm-2 ml-md-0 mb-2"><i class="fab fa-whatsapp"></i> - Send WhatsApp Msg</a>
 		</div>
 	</div>
 </div>

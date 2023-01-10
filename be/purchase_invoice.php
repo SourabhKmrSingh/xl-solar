@@ -195,7 +195,7 @@ ol li
 	</tr>
 	<tr>
 	<td colspan="5" valign="top" align="right" class="p-5">
-		<p align="right">For SUNLIEF:<br>
+		<p align="right">For XL Solar:<br>
 		<br>
 		Authorized Signatory</p></td>
 	</tr>

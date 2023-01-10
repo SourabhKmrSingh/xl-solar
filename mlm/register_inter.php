@@ -36,7 +36,7 @@ if(isset($_POST['token']) && $_POST['token'] === $_SESSION['csrf_token'])
 	// $document = $validation->input_validate($_POST['document']);
 	// $document_number = $validation->input_validate($_POST['document_number']);
 	$rewardid = "0";
-	$status = "active";
+	$status = "inactive";
 	
 	$registerplanResult = $db->view('regid,planid', 'mlm_registrations', 'regid', "and membership_id='$sponsor_id'", 'regid desc');
 	if($registerplanResult['num_rows'] >= 1)
@@ -208,9 +208,7 @@ if(isset($_POST['token']) && $_POST['token'] === $_SESSION['csrf_token'])
 	$membership_id_value = $membership_id_value+1;
 	$membership_id = $membership_id_value;
 	//$membership_id = "BT".$current_year."".$current_month."".$membership_id;
-	$membership_id = "XLS".$membership_id . rand(1, 99999); 
-
-	$membership_id = substr($membership_id,0,5);
+	$membership_id = "XLS".$membership_id . substr(rand(99999, 9999999999),0,3); 
 
 
 	// if($membership_id != "")
@@ -245,11 +243,11 @@ if(isset($_POST['token']) && $_POST['token'] === $_SESSION['csrf_token'])
 	}
 	$passwordShow = $_POST['password'];
 
-	// $message = "Hi {$first_name} You are successfully registered with SUNLIEF. Your Membership ID is {$membership_id} and Password is {$passwordShow}. Please do not share this information with anyone. Thank You, SUNLIEF E-COMMERCE AND SERVICES PRIVATE LIMITED";
+	$message = "Hi {$first_name}, \nYou are successfully registered with XL Solar. Your Membership ID is {$membership_id} and Password is {$passwordShow}. Please do not share this information with anyone. \n\nThank You, XL Solar";
 
 
 
-	// $send = $api->sendSMS($mobile,$message,'','1707162019393314443');
+	$send = WhatsApp::sendMSG("+91{$mobile}", $message);
 	
 	// if($email != "")
 	// {

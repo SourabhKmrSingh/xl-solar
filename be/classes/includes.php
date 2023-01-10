@@ -20,6 +20,7 @@ include("class.pagination3.php");
 include("class.upload.php");
 include("class.mail.php");
 include("class.api.php");
+include("class.whatsapp.php");
 $connect->query("SET NAMES 'utf8'");
 
 $configQueryResult = $db->view('*', 'rb_config', 'configid', "", "configid desc");

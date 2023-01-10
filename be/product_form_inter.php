@@ -54,6 +54,8 @@ if($subcategoryid=='')
 }
 
 $title = $validation->input_validate($_POST['title']);
+$income_type = $validation->input_validate($_POST['income_type']);
+$business_volume = $validation->input_validate($_POST['business_volume']);
 $title_id = $validation->input_validate($_POST['title_id']);
 if($title_id == "")
 {
@@ -283,7 +285,7 @@ if($fileName == "")
 	$fileName = $old_fileName;
 }
 
-$fields = array('categoryid'=>$categoryid, 'subcategoryid'=>$subcategoryid, 'title'=>$title, 'title_id'=>$title_id, 'tagline'=>$tagline, 'order_custom'=>$order_custom, 'product_code'=>$product_code, 'product_code_value'=>$product_code_value, 'currency_code'=>$currency_code, 'variant'=>$validation->input_validate($variant), 'sku'=>$sku, 'price'=>$price, 'mrp'=>$mrp, 'stock_quantity'=>$stock_quantity, 'shipping'=>$shipping, 'tax_information'=>$tax_information, 'tax_type'=>$tax_type, 'tax'=>$tax, 'cod'=>$cod, 'sale'=>$sale, 'url'=>$url, 'url_target'=>$url_target, 'meta_title'=>$meta_title, 'meta_keywords'=>$meta_keywords, 'meta_description'=>$meta_description, 'description'=>$description, 'specification'=>$specification, 'imgName'=>$imgName, 'fileName'=>$fileName, 'priority'=>$priority, 'status'=>$status, 'user_ip'=>$user_ip);
+$fields = array('categoryid'=>$categoryid, 'income_type'=> $income_type, 'business_volume' => $business_volume,'subcategoryid'=>$subcategoryid, 'title'=>$title, 'title_id'=>$title_id, 'tagline'=>$tagline, 'order_custom'=>$order_custom, 'product_code'=>$product_code, 'product_code_value'=>$product_code_value, 'currency_code'=>$currency_code, 'variant'=>$validation->input_validate($variant), 'sku'=>$sku, 'price'=>$price, 'mrp'=>$mrp, 'stock_quantity'=>$stock_quantity, 'shipping'=>$shipping, 'tax_information'=>$tax_information, 'tax_type'=>$tax_type, 'tax'=>$tax, 'cod'=>$cod, 'sale'=>$sale, 'url'=>$url, 'url_target'=>$url_target, 'meta_title'=>$meta_title, 'meta_keywords'=>$meta_keywords, 'meta_description'=>$meta_description, 'description'=>$description, 'specification'=>$specification, 'imgName'=>$imgName, 'fileName'=>$fileName, 'priority'=>$priority, 'status'=>$status, 'user_ip'=>$user_ip);
 
 if($mode == "insert")
 {

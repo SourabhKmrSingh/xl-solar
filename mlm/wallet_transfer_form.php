@@ -2,13 +2,13 @@
 include_once("inc_config.php");
 include_once("login_user_check.php");
 
-$_SESSION['active_menu'] = "activateAccount";
+$_SESSION['active_menu'] = "transfer";
 
 if (isset($_GET['mode'])) {
 	$mode = $validation->urlstring_validate($_GET['mode']);
 } else {
 	$_SESSION['error_msg'] = "There is a problem. Please Try Again!";
-	header("Location: generate_pins_view.php");
+	header("Location: wallet_transfer_view.php");
 	exit();
 }
 
@@ -16,7 +16,20 @@ if (isset($_GET['membershipid'])) {
 	$memberAccount = $validation->urlstring_validate($_GET['membershipid']);
 } else {
 	$_SESSION['error_msg'] = "There is a problem. Please Try Again!";
-	header("Location: generate_pins_view.php");
+	header("Location: wallet_transfer_view.php");
+	exit();
+}
+
+$membershipId = $_SESSION['mlm_membership_id'];
+
+
+$curMemberResult = $db->view("*", "mlm_registrations", "regid", " and membership_id = '$membershipId'");
+
+$curMemberRow = $curMemberResult['result'][0];
+
+if($curMemberRow['wallet_money'] <= 0 || $curMemberRow['wallet_money'] == ""){
+	$_SESSION['error_msg'] = "There is a problem. Please Try Again!";
+	header("Location: wallet_transfer_view.php");
 	exit();
 }
 
@@ -38,22 +51,22 @@ if (isset($_GET['membershipid'])) {
 			<div CLASS="container-fluid">
 				<div CLASS="row">
 					<div CLASS="col-lg-12">
-						<h1 CLASS="page-header">Activate an Account</h1>
+						<h1 CLASS="page-header">Transfer Money</h1>
 					</div>
 				</div>
 
 				<form name="dataform" method="post" class="form-group" action="<?php
 																				switch ($mode) {
 																					case "insert":
-																						echo "active_account_form_inter.php?mode=$mode";
+																						echo "wallet_transfer_form_inter.php?mode=$mode";
 																						break;
 																					default:
-																						echo "active_account_form_inter.php";
+																						echo "wallet_transfer_form_inter.php";
 																				}
 																				?>" enctype="multipart/form-data">
 
 					<div class="form-rows-custom mt-3">
-					<input type="hidden" name="memberAccount" value='<?php echo $memberAccount;?>'>
+					<input type="hidden" name="memberAccount" value='<?php echo $membershipId;?>'>
 						<div class="row mb-3">
 							<div class="col-sm-3">
 								<label for="membership_id"><strong>Membership ID *</strong></label>
@@ -84,10 +97,11 @@ if (isset($_GET['membershipid'])) {
 
 						<div class="row mb-3">
 							<div class="col-sm-3">
-								<label for="pin">Pins *</label>
+								<label for="amount">Amount *</label>
 							</div>
 							<div class="col-sm-9">
-								<input type="text" name="pin" id="pin" class="form-control" value="" required />
+								<input type="number" min='1' max='<?= $curMemberRow['wallet_money'];?>' name="amount" id="amount" class="form-control" value="" required />
+								<small><i> You can Transfer Maximum <span class="font-weight-bold">₹<?= $validation->price_format($curMemberRow['wallet_money']);?></span> Amount</i></small>
 							</div>
 						</div>
 
@@ -97,7 +111,7 @@ if (isset($_GET['membershipid'])) {
 								<?php
 								if ($mode == "insert") {
 								?>
-									<button type="submit" class="btn btn-default btn-sm mr-2 btn_submit"><i class="fa fa-arrow-circle-right"></i>&nbsp;&nbsp;Activate</button>
+									<button type="submit" class="btn btn-default btn-sm mr-2 btn_submit"><i class="fa fa-arrow-circle-right"></i>&nbsp;&nbsp;Transfer</button>
 									<button type="reset" class="btn btn-default btn-sm btn_delete"><i class="fas fa-sync-alt"></i>&nbsp;&nbsp;Reset</button>
 								<?php
 								} 

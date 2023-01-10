@@ -34,7 +34,7 @@ $redeemable_amount = $totalwalletRow['wallet_money'] * $configRow['redeemable_am
 <div CLASS="container-fluid">
 <div CLASS="row">
 	<div CLASS="col-lg-12">
-		<h1 CLASS="page-header">E-Wallet Request Money</h1>
+		<h1 CLASS="page-header">Withdrawn </h1>
 	</div>
 </div>
 

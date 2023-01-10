@@ -519,6 +519,7 @@ else if($mode == "edit")
 	if($member_check == "0" and $status == "active")
 	{
 		$fields['member_check'] = "1";
+		$fields['first_purchase'] = "1";
 	}
 	$fields['userid_updt'] = $userid;
 	$fields['modifytime'] = $createtime;

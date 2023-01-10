@@ -21,9 +21,13 @@
 		<ul CLASS="nav navbar-nav side-nav mr-auto" ID="SideNav">
 			<li class="nav-item"><a HREF="home.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "dashboard") echo "active"; ?>"><i CLASS="fas fa-fw fa-tachometer-alt"></i>&nbsp; Dashboard</a></li>
 			<li class="nav-item"><a HREF="profile.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "profile") echo "active"; ?>"><i class="fas fa-users"></i>&nbsp; Profile</a></li>
+			<li class="nav-item"><a HREF="direct_member_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "direct_member") echo "active"; ?>"><i class="fas fa-network-wired"></i>&nbsp; My Direct</a></li>
+			<li class="nav-item"><a HREF="downline_member_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "downline_member") echo "active"; ?>"><i class="fas fa-network-wired"></i>&nbsp; Downline Members</a></li>
 			<li class="nav-item"><a HREF="genealogy.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "genealogy") echo "active"; ?>"><i class="fas fa-network-wired"></i>&nbsp; Genealogy (Team)</a></li>
-			<li class="nav-item"><a HREF="ewallet_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "ewallet") echo "active"; ?>"><i class="fas fa-wallet"></i>&nbsp; E-Wallet</a></li>
-			<li class="nav-item"><a HREF="ewallet_request_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "ewallet_request") echo "active"; ?>"><i class="fas fa-money-check"></i>&nbsp; E-Wallet Transactions</a></li>
+			<li class="nav-item"><a HREF="ewallet_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "ewallet") echo "active"; ?>"><i class="fas fa-wallet"></i>&nbsp; Statements</a></li>
+			<li class="nav-item"><a HREF="ewallet_request_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "ewallet_request") echo "active"; ?>"><i class="fas fa-money-check"></i>&nbsp; Withdrawn</a></li>
+			<li class="nav-item"><a HREF="level_income_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "level_income_view") echo "active"; ?>"><i class="fas fa-money-check"></i>&nbsp; Level Income</a></li>
+			<li class="nav-item"><a HREF="wallet_transfer_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "transfer") echo "active"; ?>"><i class="fas fa-money-check"></i>&nbsp; Transfer Money</a></li>
 			<li class="nav-item"><a HREF="enquiry_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "enquiry") echo "active"; ?>"><i CLASS="fa fa-envelope"></i>&nbsp; Enquiries/Tickets</a></li>
 			<li class="nav-item"><a HREF="user_password.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "user_password") echo "active"; ?>"><i class="fa fa-key"></i>&nbsp; Change Password</a></li>
 			<li class="nav-item"><a HREF="logout.php" class="nav-link"><i class="fa fa-power-off"></i>&nbsp; Log Out</a></li>

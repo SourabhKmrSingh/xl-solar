@@ -136,7 +136,7 @@ $data = $pagination3->main($table, $url_parameters, $where_query, $id, $orderby,
                                 <div class="entry-body">
                                     <div class="entry-meta">
                                         <span class="entry-author">
-                                            by <a href="<?php echo BASE_URL;?>">SUNLIEF</a>
+                                            by <a href="<?php echo BASE_URL;?>">XL Solar</a>
                                         </span>
                                         <span class="meta-separator">|</span>
                                         <a href="#"> <?php echo $validation->date_format_custom($sectionRow['createdate']); ?></a>

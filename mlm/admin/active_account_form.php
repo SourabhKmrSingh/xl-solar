@@ -20,8 +20,6 @@ if (isset($_GET['membershipid'])) {
 	exit();
 }
 
-
-
 ?>
 <!DOCTYPE html>
 <html LANG="en">

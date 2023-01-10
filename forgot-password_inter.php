@@ -47,13 +47,13 @@ if(isset($_POST['token']) && $_POST['token'] === $_SESSION['csrf_token'])
 		
 		if($email != "")
 		{
-			$subject = "Account Recovery - Sunlief";
+			$subject = "Account Recovery - XLSOLAR";
 			$message = "<strong>Hi $first_name,</strong><br><br>
 						This email is in response to your password request. <a href='{$base_url}forgot-password-complete{$suffix}?mobile=$mobile&mode=jUhYg7Hu2hY12HuKiUhY2bhYhY6h&q=$regid_custom&mode2=kIjYhY786gThUjvFdXsAe57G' style='color: #1AB1D1;'>Click here to set your new password</a>. This link may be used once and is active for 2 hours. If this email is older than 2 hours, you may receive a new link by using Forgot Password from the Sign In page.<br><br>
 						Link not working for you? Copy the url below into your browser.<br>
 						<a href='{$base_url}forgot-password-complete{$suffix}?mobile=$mobile&mode=jUhYg7Hu2hY12HuKiUhY2bhYhY6h&q=$regid_custom&mode2=kIjYhY786gThUjvFdXsAe57G' style='color: #1AB1D1;'>{$base_url}forgot-password-complete{$suffix}?mobile=$mobile&mode=jUhYg7Hu2hY12HuKiUhY2bhYhY6h&q=$regid_custom&mode2=kIjYhY786gThUjvFdXsAe57G</a><br><br>
 						If you did not request for a new password, please <a href='{$base_url}contact{$suffix}' style='color: #1AB1D1;'>click here</a> to contact us immediately.<br><br>
-						Thanks and Regards<br>Sunlief
+						Thanks and Regards<br>XLSOLAR
 						<br><br>This is an automated email, please do not reply.";
 			
 			$mail->sendmail(array($email), $subject, $message);

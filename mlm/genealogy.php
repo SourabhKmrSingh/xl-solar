@@ -132,7 +132,7 @@ function getAllDownlines($parent)
 
 			if($treeRow['status'] == "inactive") {
 
-				echo "<p class='pending'>Approval Pending</p>";
+				echo "<p class='pending'>Inactive</p>";
 
 			}
 

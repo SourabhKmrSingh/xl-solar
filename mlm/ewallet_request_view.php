@@ -77,7 +77,7 @@ $totalwalletRow = $totalwalletResult['result'][0];
 <div CLASS="container-fluid">
 <div CLASS="row">
 	<div CLASS="col-lg-12">
-		<h1 CLASS="page-header">E-Wallet Transactions <a href="ewallet_request_form.php" class="btn btn-default btn-sm button">Request Money</a></h1>
+		<h1 CLASS="page-header">Withdrawn <a href="ewallet_request_form.php" class="btn btn-default btn-sm button">Request Money</a></h1>
 	</div>
 </div>
 

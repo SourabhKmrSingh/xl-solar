@@ -191,6 +191,28 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
+
+
+	<div class="row mb-3">
+		<div class="col-sm-3">
+			<label for="income_type" class="font-weight-bold">Income Type *</label>
+		</div>
+		<div class="col-sm-9">
+			<select name="income_type" id="income_type" required class="form-control" >
+				<option <?php if($mode == 'edit') if($productRow['income_type'] == "level"){ echo "selected"; }?> value="level">Level Income</option>
+				<option <?php if($mode == 'edit') if($productRow['income_type'] == "repurchase"){ echo "selected"; }?> value="repurchase">Repurchase Income</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-sm-3">
+			<label for="business_volume" class="font-weight-bold">Business Volume *</label>
+		</div>
+		<div class="col-sm-9">
+			<input type="text" name="business_volume" required value="<?php if($mode == "edit") if($productRow['business_volume'] != "") { echo $productRow['business_volume']; }?>" onkeypress="return isNumberKey(event);" id="business_volume" class="form-control">
+		</div>
+	</div>
 	
 	<div class="row mb-3">
 		<div class="col-sm-3">
@@ -333,7 +355,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 	
-	<div class="row mb-3">
+	<!-- <div class="row mb-3">
 		<div class="col-sm-3">
 			<label for="tax_type">Tax Type</label>
 		</div>
@@ -345,7 +367,7 @@ $(document).ready(function(){
 				<option value="IGST" <?php if($mode == 'edit') { if($productRow['tax_type'] == "IGST") echo "selected"; } else { echo "selected"; } ?>>IGST</option>
 			</select>
 		</div>
-	</div>
+	</div> -->
 	
 	<div class="row mb-3">
 		<div class="col-sm-3">
@@ -357,7 +379,8 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-	
+	<input type="hidden" name="cod" value='yes'>
+<!-- 	
 	<div class="row mb-3">
 		<div class="col-sm-3">
 			<label for="cod">COD *</label>
@@ -369,7 +392,7 @@ $(document).ready(function(){
 				<option value="no" <?php if($mode == 'edit') { if($validation->db_field_validate($productRow['cod']) == "no") echo "selected"; } ?>>No</option>
 			</select>
 		</div>
-	</div>
+	</div> -->
 	
 	<div class="row mb-3">
 		<div class="col-sm-3">
@@ -612,7 +635,7 @@ $(document).ready(function(){
 				<div CLASS="image_close_button">&times;</div>
 			</div>
 		</div>
-		<div STYLE="background:; padding:3%;">
+		<div STYLE="padding:3%;">
 			<p align="center">Select/Upload files from your local machine to server.</p>
 			<div ID="drop-area"><p CLASS="drop-text" STYLE="margin-top:50px;">
 				<p class="image_upper_text" id="image_upper_text"><i class="fas fa-check" aria-hidden="true" style="color: #0BC414;"></i> Your Image has been Uploaded. Upload more pictures!!!</p>

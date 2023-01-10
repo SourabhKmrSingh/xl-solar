@@ -162,7 +162,7 @@ if(isset($_GET['q']))
 			</select>
 		</div>
 	</div>
-	
+
 	<div class="row mb-3">
 		<div class="col-sm-3">
 			<label for="script">Script</label>
@@ -291,6 +291,34 @@ if(isset($_GET['q']))
 			<input type="checkbox" name="google_indexing" id="google_indexing" <?php if($mode == 'edit') { if($configRow['google_indexing'] == "1") echo "checked"; } ?> /> 
 		</div>
 	</div>
+
+	<h5 class="mb-4 mt-5">WhatsApp API Settings</h5>
+
+	<div class="row mb-3">
+		<div class="col-sm-3">
+			<label for="api_key">API Key</label>
+		</div>
+		<div class="col-sm-9">
+			<input type="text" name="api_key" id="api_key" class="form-control" value="<?php if($mode == 'edit') echo $validation->db_field_validate($configRow['api_key']); ?>" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<div class="col-sm-3">
+			<label for="instance_key">Instance Key</label>
+		</div>
+		<div class="col-sm-9">
+			<input type="text" name="instance_key" id="instance_key" class="form-control" value="<?php if($mode == 'edit') echo $validation->db_field_validate($configRow['instance_key']); ?>" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<div class="col-sm-3">
+			<label for="admin_number">Admin Number (For Order Notification)</label>
+		</div>
+		<div class="col-sm-9">
+			<input type="text" minlength="10" maxlength="10" onkeypress="isNumberKey(event);" name="admin_number" id="admin_number" class="form-control" value="<?php if($mode == 'edit') echo $validation->db_field_validate($configRow['admin_number']); ?>" />
+		</div>
+	</div>
+
 	
 	<h5 class="mb-4 mt-5">Product Delivery Settings</h5>
 	

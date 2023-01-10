@@ -43,6 +43,8 @@ if($mode == "edit")
 $cms_title = $validation->input_validate($_POST['cms_title']);
 $cms_url = $validation->input_validate($_POST['cms_url']);
 $meta_title = $validation->input_validate($_POST['meta_title']);
+$api_key = $validation->input_validate($_POST['api_key']);
+$instance_key = $validation->input_validate($_POST['instance_key']);
 $meta_keywords = $validation->input_validate($_POST['meta_keywords']);
 $meta_description = $validation->input_validate($_POST['meta_description']);
 $site_url = $validation->input_validate($_POST['site_url']);
@@ -53,6 +55,7 @@ $old_logo = $validation->input_validate($_POST['old_logo']);
 $old_favicon = $validation->input_validate($_POST['old_favicon']);
 $timezone = $validation->input_validate($_POST['timezone']);
 $date_format = $validation->input_validate($_POST['date_format']);
+$admin_number = $validation->input_validate($_POST['admin_number']);
 $time_format = $validation->input_validate($_POST['time_format']);
 $records_perpage = $validation->input_validate($_POST['records_perpage']);
 if(isset($_POST['google_indexing']))
@@ -215,7 +218,7 @@ if($favicon == "")
 	$favicon = $old_favicon;
 }
 
-$fields = array('cms_title'=>$cms_title, 'cms_url'=>$cms_url, 'meta_title'=>$meta_title, 'meta_keywords'=>$meta_keywords, 'meta_description'=>$meta_description, 'site_url'=>$site_url, 'site_url_extension'=>$site_url_extension, 'script'=>$script, 'style'=>$style, 'logo'=>$logo, 'favicon'=>$favicon, 'timezone'=>$timezone, 'date_format'=>$date_format, 'time_format'=>$time_format, 'records_perpage'=>$records_perpage, 'google_indexing'=>$google_indexing, 'expected_delivery'=>$expected_delivery, 'minimum_cart'=>$minimum_cart, 'cart_shipping'=>$cart_shipping, 'min_wallet_amount'=>$min_wallet_amount, 'redeemable_amount'=>$redeemable_amount, 'title'=>$title, 'email'=>$email, 'contact_number'=>$contact_number, 'address'=>$address, 'facebook'=>$facebook, 'twitter'=>$twitter, 'youtube'=>$youtube, 'instagram'=>$instagram, 'linkedin'=>$linkedin, 'whatsapp'=>$whatsapp, 'mail_server'=>$mail_server, 'mail_port'=>$mail_port, 'mail_encryption'=>$mail_encryption, 'mail_name'=>$mail_name, 'mail_email'=>$mail_email, 'mail_password'=>$mail_password, 'thumb_width'=>$thumb_width, 'thumb_height'=>$thumb_height, 'thumb_ratio'=>$thumb_ratio, 'large_width'=>$large_width, 'large_height'=>$large_height, 'large_ratio'=>$large_ratio, 'image_maxsize'=>$image_maxsize, 'file_maxsize'=>$file_maxsize, 'user_ip'=>$user_ip);
+$fields = array('cms_title'=>$cms_title, 'cms_url'=>$cms_url, 'meta_title'=>$meta_title, 'meta_keywords'=>$meta_keywords, 'meta_description'=>$meta_description, 'site_url'=>$site_url, 'admin_number'=> $admin_number, 'site_url_extension'=>$site_url_extension, 'script'=>$script, 'style'=>$style, 'logo'=>$logo, 'api_key' => $api_key, 'instance_key' => $instance_key, 'favicon'=>$favicon, 'timezone'=>$timezone, 'date_format'=>$date_format, 'time_format'=>$time_format, 'records_perpage'=>$records_perpage, 'google_indexing'=>$google_indexing, 'expected_delivery'=>$expected_delivery, 'minimum_cart'=>$minimum_cart, 'cart_shipping'=>$cart_shipping, 'min_wallet_amount'=>$min_wallet_amount, 'redeemable_amount'=>$redeemable_amount, 'title'=>$title, 'email'=>$email, 'contact_number'=>$contact_number, 'address'=>$address, 'facebook'=>$facebook, 'twitter'=>$twitter, 'youtube'=>$youtube, 'instagram'=>$instagram, 'linkedin'=>$linkedin, 'whatsapp'=>$whatsapp, 'mail_server'=>$mail_server, 'mail_port'=>$mail_port, 'mail_encryption'=>$mail_encryption, 'mail_name'=>$mail_name, 'mail_email'=>$mail_email, 'mail_password'=>$mail_password, 'thumb_width'=>$thumb_width, 'thumb_height'=>$thumb_height, 'thumb_ratio'=>$thumb_ratio, 'large_width'=>$large_width, 'large_height'=>$large_height, 'large_ratio'=>$large_ratio, 'image_maxsize'=>$image_maxsize, 'file_maxsize'=>$file_maxsize, 'user_ip'=>$user_ip);
 
 if($mode == "insert")
 {

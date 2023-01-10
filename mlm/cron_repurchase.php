@@ -8,7 +8,7 @@ if($repurchaseResult['num_rows'] >= 1){
 	// Total Amount 
 	// Run a Query to find all the entry of delivered in rb_purchase at that particular day - Sum of That Amount
 
-	$curSalesResult = $db->view("sum(final_price) as total_sales", "rb_purchases", "purchaseid", " and tracking_status = 'delivered' and invoicedate = '$createdate' and repurchase_check = '0'"); // Current Date While using in Prod
+	$curSalesResult = $db->view("sum(business_volume) as total_sales", "rb_purchases", "purchaseid", " and tracking_status = 'delivered' and invoicedate = '$createdate' and repurchase_check = '0' and income_type = 'repurchase'"); // Current Date While using in Prod
 
 	$total_sales = $curSalesResult['result'][0]['total_sales'];
 
@@ -54,11 +54,10 @@ if($repurchaseResult['num_rows'] >= 1){
 
 	$htMemeberData = [];
 
-	$registerMemberResult = $db->view("regid, membership_id, first_purchase,first_name, last_name, sponsor_id, status", "mlm_registrations", "regid", " and status = 'active'");
+	$registerMemberResult = $db->view("regid, first_purchase,membership_id, first_name, last_name, sponsor_id, status", "mlm_registrations", "regid", " and status = 'active'");
 
 	if($registerMemberResult['num_rows'] >= 1){
 		foreach($registerMemberResult['result'] as $registerMemberRow){
-
 			if($registerMemberRow['first_purchase'] == 1){
 				$ht = 0;
 				$slr = 0;
@@ -71,6 +70,8 @@ if($repurchaseResult['num_rows'] >= 1){
 		}		
 	}
 
+	
+
 	foreach($repurchaseResult['result'] as $repurchaseRow)
 	{
 
@@ -82,7 +83,6 @@ if($repurchaseResult['num_rows'] >= 1){
 
 			if(count($clearedMembers) > 0){
 
-				
 				$percentage = $repurchaseRow['percentage'];
 
 				if($percentage != "0.00" && $percentage != "" && $total_sales != "0.00" && $total_sales != ""){
@@ -123,7 +123,6 @@ if($repurchaseResult['num_rows'] >= 1){
 				break;
 			}
 		}
-
 
 	}
 

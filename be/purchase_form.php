@@ -131,7 +131,7 @@ if($mode == "edit")
 			<p class="text"><?php echo $validation->db_field_validate($purchaseRow['sponsor_id']); ?></p>
 		</div>
 	</div>
-	
+<!-- 	
 	<h5 class="mb-4">Bank Details</h5>
 	
 	<div class="row mb-3">
@@ -168,7 +168,7 @@ if($mode == "edit")
 		<div class="col-sm-9">
 			<p class="text"><?php echo $validation->db_field_validate($purchaseRow['bank_ref_no']); ?></p>
 		</div>
-	</div>
+	</div> -->
 	
 	<div class="row mb-3">
 		<div class="col-sm-3">
@@ -630,7 +630,7 @@ if($mode == "edit")
 				<div CLASS="image_close_button">&times;</div>
 			</div>
 		</div>
-		<div STYLE="background:; padding:3%;">
+		<div STYLE="padding:3%;">
 			<p align="center">Select/Upload files from your local machine to server.</p>
 			<div ID="drop-area"><p CLASS="drop-text" STYLE="margin-top:50px;">
 				<p class="image_upper_text" id="image_upper_text"><i class="fas fa-check" aria-hidden="true" style="color: #0BC414;"></i> Your Image has been Uploaded. Upload more pictures!!!</p>
