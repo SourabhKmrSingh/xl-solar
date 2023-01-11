@@ -158,6 +158,7 @@ function getAllDownlines($parent)
 		<th>Sale</th>
 		<th>E-Wallet</th> -->
 		<th>Business Volume</th>
+		<th>Level Percentage</th>
 		<th>Level Income</th>
 		<th>Status</th>
 		<th class="<?php echo $th_sort3." ".$th_order_cls3; ?>"><a href="register_view.php?orderby=createdate&order=<?php echo $th_order3.''.$url_parameters; ?>"><span>Date</span> <span class="sorting-indicator"></span></a></th>
@@ -205,8 +206,10 @@ function getAllDownlines($parent)
 			$ActivePurchaseDetailRow = $ActivePurchaseDetailResult['result'][0];
 
 			$purchaseide = $ActivePurchaseDetailRow['purchaseid'];
-			$levelAmountResult = $db->view("amount", "mlm_distribution_level", 'distributionId', " and purchaseid = '$purchaseide' and membership_id = '$currentMembership_id'");
+			$levelAmountResult = $db->view("amount, levelid", "mlm_distribution_level", 'distributionId', " and purchaseid = '$purchaseide' and membership_id = '$currentMembership_id'");
 			$levelAmountRow = $levelAmountResult['result'][0];
+
+
 
 		?>
 		<tr class="text-center has-row-actions">
@@ -220,8 +223,9 @@ function getAllDownlines($parent)
 				</div>-->
 			</td>
 			<td data-label="Membership ID - "><?php echo $validation->db_field_validate($registerRow['membership_id']); ?></td>
-			<td data-label="Business Volume - "><?php echo $validation->db_field_validate($ActivePurchaseDetailRow['business_volume']); ?></td>
-			<td data-label="Level Income - "><?php echo $validation->db_field_validate($levelAmountRow['amount']); ?></td>
+			<td data-label="Business Volume - "><?php echo $ActivePurchaseDetailRow['business_volume'] != "" ?  $validation->db_field_validate($ActivePurchaseDetailRow['business_volume']) : "-"; ?></td>
+			<td data-label="Level Percentage - "><?php echo $levelAmountRow['amount'] != "" ? $validation->db_field_validate(($levelAmountRow['amount'] /$ActivePurchaseDetailRow['business_volume']) * 100) . "%": "-"; ?></td>
+			<td data-label="Level Income - "><?php echo $levelAmountRow['amount'] != "" ? $validation->db_field_validate($levelAmountRow['amount']) : "-"; ?></td>
 			<!-- <td data-label="Email - "><?php echo $validation->db_field_validate($registerRow['email']); ?></td> -->
 			<!-- <td data-label="Mobile No. - "><?php echo $validation->db_field_validate($registerRow['mobile']); ?></td> -->
 			<!-- <td data-label="Members - ">

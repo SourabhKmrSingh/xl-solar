@@ -97,12 +97,12 @@ $wallet_money = $totalwalletRow['wallet_money'];
 								<div class="col-sm-4">
 									<a href="<?php echo BASE_URL . 'mlm' . SUFFIX; ?>" target="_blank" class="home-box-link">
 										<div class="home-box">
-											<div class="box-column-1">
-												<img src="<?php echo BASE_URL . "images/cashback-portal.png"; ?>" alt="Profile & Address" />
+											<div class="box-column-1 d-flex align-items-center" style="min-height: 100px;">
+												<img src="<?php echo BASE_URL . IMG_MAIN_LOC . $configRow['logo']; ?>" alt="Profile & Address" />
 											</div>
 											<div class="box-column-2">
-												<h2 class="box-title">Cashback Portal</h2>
-												<p class="box-description">Check your downlines, cashback history etc.</p>
+												<h2 class="box-title">MLM Portal</h2>
+												<p class="box-description">Check your downlines, Statementev history etc.</p>
 											</div>
 										</div>
 									</a>

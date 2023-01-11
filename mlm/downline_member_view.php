@@ -185,6 +185,7 @@ echo $validation->search_filter_enable();
 		<!-- <th>Designation</th> -->
 		<th>Level</th>
 		<th>Business Volume</th>
+		<th>Level Percentage</th>
 		<th>Level Income</th>
 		<!-- <th>Mobile No.</th> -->
 		<!-- <th>Members</th> -->
@@ -265,6 +266,7 @@ echo $validation->search_filter_enable();
 			<!-- <td data-label="Designation - "><?php echo $crewardRow['title'] != "" ?  $validation->db_field_validate($crewardRow['title']) : "-" ; unset($crewardRow) ?></td> -->
 			<td data-label="Level - "><?php echo $levelslr - 1; ?></td>
 			<td data-label="Business Volume - "><?php echo $ActivePurchaseDetailRow['business_volume'] == "" || $ActivePurchaseDetailRow['business_volume'] == 0 ? "-" : $validation->db_field_validate($ActivePurchaseDetailRow['business_volume']); ?></td>
+			<td data-label="Level Percentage - "><?php echo $levelAmountRow['amount'] != "" ? $validation->db_field_validate(($levelAmountRow['amount'] /$ActivePurchaseDetailRow['business_volume']) * 100) . "%": "-"; ?></td>
 			<td data-label="Level Income - "><?php echo $levelAmountRow['amount'] =="" || $levelAmountRow['amount'] == 0 ? "-" : $validation->db_field_validate($levelAmountRow['amount']); ?></td>
 			<!-- <td data-label="Mobile No. - "><?php echo  $validation->db_field_validate($registerRow['mobile']); ?></td> -->
 			<!-- <td data-label="Members - ">

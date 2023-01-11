@@ -4,8 +4,6 @@ include_once("login_user_check.php");
 
 $_SESSION['active_menu'] = "repurchase";
 
-echo $validation->read_permission();
-
 @$orderby = $validation->input_validate($_GET['orderby']);
 @$order = $validation->input_validate($_GET['order']);
 
@@ -53,7 +51,7 @@ if($orderby != "" and $order != "")
 }
 else
 {
-	$orderby_final = "repurchaseid desc";
+	$orderby_final = "repurchaseid asc";
 }
 
 $param1 = "title";

@@ -51,7 +51,7 @@ if($orderby != "" and $order != "")
 }
 else
 {
-	$orderby_final = "levelid desc";
+	$orderby_final = "levelid asc";
 }
 
 $param1 = "title";

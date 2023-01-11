@@ -373,7 +373,7 @@ $csrf_token = $_SESSION['csrf_token'];
                                 class="fas fa-user-plus"></i>&nbsp;&nbsp;Register</button>
                         </div>
                         <div class="col-md-12 form-group mt-3 text-center">
-                            Already have an account? <a href="<?php echo BASE_URL; ?>">Log in</a>
+                            Already have an account? <a href="<?php echo $configRow['site_url_web'] . "login" . "/"; ?>">Log in</a>
                         </div>
                         <br>
                         <div class="col-md-12">
