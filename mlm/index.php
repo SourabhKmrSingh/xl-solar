@@ -28,28 +28,7 @@ $(window).bind("load", function(){
 <body>
 <div class="login-page">
 
-	<?php if($_SESSION['register_msg']){?>
-		<div class="modal fade" id="exampleModalCenter" style='z-index: 9999;' tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content rounded-0">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">
-						<img src="<?php echo BASE_URL . IMG_MAIN_LOC . $configRow['logo'];?>" alt="logo" width='100'>
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p><?php echo $_SESSION['register_msg'];?></p>
-				</div>
-				
-				</div>
-			</div>
-		</div>
-	<?php } 
-		unset($_SESSION['register_msg']);
-	?>
+	
   <div class="form">
     <form class="login-form" name="login_form" method="post" action="login_check.php">
 	<div class="logo" align="center"><?php if($configRow['logo'] != "") { ?><img src="<?php echo FILE_LOC."".$validation->db_field_validate($configRow['logo']); ?>" class="img-responsive mw-100 mb-3" /><?php } ?></div>
@@ -76,9 +55,5 @@ $(window).bind("load", function(){
   </div>
 </div>
 </body>
-<script>
 
-$('#exampleModalCenter').modal('show')
-
-</script>
 </html>

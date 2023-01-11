@@ -1,5 +1,5 @@
-<meta name="apple-mobile-web-app-title" content="SUNLIEF">
-<meta name="application-name" content="SUNLIEF">
+<meta name="apple-mobile-web-app-title" content="XL Solar">
+<meta name="application-name" content="XL Solar">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="msapplication-TileColor" content="#cc9966">
 <meta name="msapplication-config" content="<?php echo BASE_URL;?>assets/images/icons/browserconfig.xml">

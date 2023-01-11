@@ -172,10 +172,19 @@ if($mode == "edit")
 	
 	<div class="row mb-3">
 		<div class="col-sm-3">
-			<label>Order Status</label>
+			<label>Income Type</label>
 		</div>
 		<div class="col-sm-9">
-			<p class="text"><?php echo $validation->db_field_validate($purchaseRow['order_status']); ?></p>
+			<p class="text font-weight-bold"><?php echo $validation->db_field_validate(ucfirst($purchaseRow['income_type'])); ?></p>
+		</div>
+	</div>
+	
+	<div class="row mb-3">
+		<div class="col-sm-3">
+			<label>Business Volume</label>
+		</div>
+		<div class="col-sm-9">
+			<p class="text font-weight-bold"><?php echo $validation->db_field_validate($purchaseRow['business_volume']); ?></p>
 		</div>
 	</div>
 	

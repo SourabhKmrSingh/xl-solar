@@ -36,6 +36,14 @@ if($q != "")
     $where_query .= ")";
     $where_query_price .= ")";
 }
+if($_SESSION['membership_id'] != ""){
+    if($_SESSION['mlm_status'] == "active"){
+        $where_query .= " and income_type = 'repurchase'";
+    }else{
+        $where_query .= " and income_type = 'level'";
+    }
+}
+
 if($cat != "")
 {
     $where_query .= " and categoryid IN (select categoryid from rb_categories where title_id='$cat')";
@@ -74,6 +82,7 @@ $url_parameters_price = "&q=$q&cat=$cat&subcat=$subcat&orderby=$orderby&order=$o
 $url_parameters_pagesize = "&q=$q&cat=$cat&subcat=$subcat&min=$min&max=$max&orderby=$orderby&order=$order";
 
 $data = $pagination2->main($table, $url_parameters, $where_query, $id, $orderby_final);
+
 
 if($cat != "")
 {

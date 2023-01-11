@@ -265,7 +265,7 @@ if(isset($_POST['token']) && $_POST['token'] === $_SESSION['csrf_token'])
 	
 	
 	$_SESSION['register_msg'] = "Your account has been successfully created. Your membership ID is <b>{$membership_id}</b> and password is <b>{$passwordShow}</b>. Thank You!";
-	header("Location: {$base_url}");
+	header("Location: {$base_url}register{$suffix}");
 	exit();
 }
 else

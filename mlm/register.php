@@ -1,11 +1,7 @@
 <?php
 include_once("inc_config.php");
 
-if ($_SESSION['mlm_regid'] != '') {
-	$_SESSION['success_msg'] = "You're Logged In!";
-	header("Location: home.php");
-	exit();
-}
+
 
 $id = $validation->urlstring_validate($_GET['id']);
 
@@ -146,6 +142,28 @@ $csrf_token = $_SESSION['csrf_token'];
 
 <body>
     <div class="login-page">
+    <?php if($_SESSION['register_msg']){?>
+		<div class="modal fade" id="exampleModalCenter" style='z-index: 9999;' tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content rounded-0">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						<img src="<?php echo BASE_URL . IMG_MAIN_LOC . $configRow['logo'];?>" alt="logo" width='100'>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p><?php echo $_SESSION['register_msg'];?></p>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+	<?php } 
+		unset($_SESSION['register_msg']);
+	?>
         <br />
         <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -368,5 +386,9 @@ $csrf_token = $_SESSION['csrf_token'];
         <br />
     </div>
 </body>
+<script>
 
+$('#exampleModalCenter').modal('show')
+
+</script>
 </html>

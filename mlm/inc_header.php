@@ -27,6 +27,9 @@
 			<li class="nav-item"><a HREF="ewallet_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "ewallet") echo "active"; ?>"><i class="fas fa-wallet"></i>&nbsp; Statements</a></li>
 			<li class="nav-item"><a HREF="ewallet_request_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "ewallet_request") echo "active"; ?>"><i class="fas fa-money-check"></i>&nbsp; Withdrawn</a></li>
 			<li class="nav-item"><a HREF="level_income_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "level_income_view") echo "active"; ?>"><i class="fas fa-money-check"></i>&nbsp; Level Income</a></li>
+			<li class="nav-item"><a HREF="repurchase_sales_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "purchase") echo "active"; ?>"><i class="fas fa-money-check"></i>&nbsp; Company Repurchase Details</a></li>
+			<li class="nav-item"><a HREF="level_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "level") echo "active"; ?>"><i class="fas fa-trophy"></i>&nbsp; Level Plan Details</a></li>
+			<li class="nav-item"><a HREF="repurchase_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "repurchase") echo "active"; ?>"><i class="fas fa-money-bill-alt"></i>&nbsp; Repurchases Plan Details</a></li>
 			<li class="nav-item"><a HREF="wallet_transfer_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "transfer") echo "active"; ?>"><i class="fas fa-money-check"></i>&nbsp; Transfer Money</a></li>
 			<li class="nav-item"><a HREF="enquiry_view.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "enquiry") echo "active"; ?>"><i CLASS="fa fa-envelope"></i>&nbsp; Enquiries/Tickets</a></li>
 			<li class="nav-item"><a HREF="user_password.php" class="nav-link <?php if(@$_SESSION['active_menu'] == "user_password") echo "active"; ?>"><i class="fa fa-key"></i>&nbsp; Change Password</a></li>

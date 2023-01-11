@@ -79,7 +79,7 @@ $nextrecordRow = $nextrecordResult['result'][0];
                                 <div class="entry-body">
                                     <div class="entry-meta">
                                         <span class="entry-author">
-                                            by <a href="<?php echo BASE_URL;?>">Sunlief</a>
+                                            by <a href="<?php echo BASE_URL;?>">XLSolar</a>
                                         </span>
                                         <span class="meta-separator">|</span>
                                         <a href="#"><?php echo $validation->date_format_custom($sectionRow['createdate']); ?> (<?php echo $validation->timecount("{$sectionRow['createdate']} {$sectionRow['createtime']}"); ?>)</a>

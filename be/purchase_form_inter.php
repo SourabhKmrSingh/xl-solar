@@ -206,6 +206,7 @@ else if($mode == "edit")
 		$total_amount = 0;
 
 
+
 		// Check Remaining Distribution
 
 

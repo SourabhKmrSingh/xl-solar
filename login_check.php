@@ -65,6 +65,9 @@ if(isset($_POST['token']) && $_POST['token'] === $_SESSION['csrf_token'])
 		$_SESSION['pincode'] = $loginRow['pincode'];
 		$_SESSION['membership_id'] = $loginRow['membership_id'];
 		
+		$mlmResult= $db->view("*", "mlm_registrations", 'regid', " and membership_id = '{$_SESSION['membership_id']}'");
+		$_SESSION['mlm_status'] = $mlmResult['result'][0]['status'];
+		
 		$fields = array('regid'=>$loginRow['regid'], 'email'=>$loginRow['email'], 'status'=>'active', 'user_ip'=>$user_ip, 'createtime'=>$createtime, 'createdate'=>$createdate);
 		$logResult = $db->insert("rb_logdetail_frontend", $fields);
 		if(!$logResult)

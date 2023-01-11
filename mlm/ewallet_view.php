@@ -8,6 +8,7 @@ $_SESSION['active_menu'] = "ewallet";
 @$order = $validation->input_validate($_GET['order']);
 
 @$refno = $validation->input_validate($_GET['refno']);
+@$level = $validation->input_validate($_GET['level']);
 @$type = $validation->input_validate($_GET['type']);
 @$reason = $validation->input_validate($_GET['reason']);
 @$status = strtolower($validation->input_validate($_GET['status']));
@@ -22,6 +23,9 @@ if($refno != "")
 if($type != "")
 {
 	$where_query .= " and type = '$type'";
+}
+if($level != ""){
+	$where_query .= " and level = '$level'";	
 }
 if($reason != "")
 {

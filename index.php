@@ -8,9 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?php include_once("inc_title.php");?></title>
-    <meta name="keywords" content="SUNLIEF">
-    <meta name="description" content="SUNLIEF - ECOMMERCE AND MLM PORTAL">
-    <meta name="author" content="SUNLIEF">
+    <meta name="keywords" content="XL Solar">
+    <meta name="description" content="XL Solar - ECOMMERCE AND MLM PORTAL">
+    <meta name="author" content="XL Solar">
     <!-- Favicon -->
     <!-- <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png"> -->
     <?php include_once("inc_files.php");?>
@@ -64,7 +64,16 @@
                                 }
                             }'>
                             <?php
-                            $productResult = $db->view('*', 'rb_products', 'productid', "and priority='1' and status='active' and sale='1'", 'order_custom desc', '20');
+                            $whery_query = "";
+                            if($_SESSION['membership_id'] != ""){
+                                if($_SESSION['mlm_status'] == "active"){
+                                    $whery_query .= " and income_type = 'repurchase'";
+                                }else{
+                                    $whery_query .= " and income_type = 'level'";
+                                }
+                            }
+                            
+                            $productResult = $db->view('*', 'rb_products', 'productid', "and priority='1' and status='active' and sale='1' $whery_query", 'order_custom desc', '20');
                             if ($productResult['num_rows'] >= 1) {
                                 foreach ($productResult['result'] as $productRow) {
                                     $productid = $productRow['productid'];
@@ -215,7 +224,7 @@
                         <div class="products">
                             <div class="row justify-content-center">
                                 <?php
-                            $productResult = $db->view('*', 'rb_products', 'productid', "and priority='1' and status='active'", 'order_custom desc', '20');
+                            $productResult = $db->view('*', 'rb_products', 'productid', "and priority='1' and status='active' $whery_query", 'order_custom desc', '20');
                             if ($productResult['num_rows'] >= 1) {
                                 foreach ($productResult['result'] as $productRow) {
                                     $productid = $productRow['productid'];
@@ -408,6 +417,8 @@ $url = BASE_URL . "section/{$title_id}/20/";
 $data = $pagination3->main($table, "*", $where_query, $id, $orderby, $url);
 
 include_once("inc_files.php");
+if ($data['num_rows'] >= 1) {
+
 ?>              
             <div class="container instagram">
                 <div class="heading text-center">
@@ -445,7 +456,6 @@ include_once("inc_files.php");
                     }
                 }'>
                  <?php
-    if ($data['num_rows'] >= 1) {
         foreach ($data['result'] as $sectionRow) {
             $gallery = $sectionRow['imgName'];
             $Single_image = explode(" | ", $gallery);

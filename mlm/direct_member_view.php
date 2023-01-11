@@ -52,7 +52,7 @@ $url_parameters = "&userid=$userid&status=$status&datefrom=$datefrom&dateto=$dat
 $data = $pagination->main($table, $url_parameters, $where_query, $id, $orderby_final);
 
 echo $validation->search_filter_enable();
-
+$currentMembership_id = $_SESSION['mlm_membership_id'];
 
 
 $legs_data = array();
@@ -152,11 +152,13 @@ function getAllDownlines($parent)
 	<tr>
 		<th class="<?php echo $th_sort1." ".$th_order_cls1; ?>"><a href="register_view.php?orderby=first_name&order=<?php echo $th_order1; echo $url_parameters; ?>"><span>Name</span> <span class="sorting-indicator"></span></a></th>
 		<th>Membership ID</th>
-		<th>Email</th>
-		<th>Mobile No.</th>
+		<!-- <th>Email</th> -->
+		<!-- <th>Mobile No.</th> -->
 		<!-- <th>Members</th>
 		<th>Sale</th>
 		<th>E-Wallet</th> -->
+		<th>Business Volume</th>
+		<th>Level Income</th>
 		<th>Status</th>
 		<th class="<?php echo $th_sort3." ".$th_order_cls3; ?>"><a href="register_view.php?orderby=createdate&order=<?php echo $th_order3.''.$url_parameters; ?>"><span>Date</span> <span class="sorting-indicator"></span></a></th>
 	</tr>
@@ -196,6 +198,16 @@ function getAllDownlines($parent)
 			getAllDownlines($registerRow['membership_id']);
 
 			$directResult = $db->view("regid", "mlm_registrations", "regid", " and sponsor_id = '{$registerRow['membership_id']}'");
+
+			
+			$cmembershipId = $registerRow['membership_id'];
+			$ActivePurchaseDetailResult = $db->view("*", "rb_purchases", "purchaseid", " and tracking_status ='delivered' and membership_id = '$cmembershipId' and income_type = 'level'", "purchaseid asc", 1);
+			$ActivePurchaseDetailRow = $ActivePurchaseDetailResult['result'][0];
+
+			$purchaseide = $ActivePurchaseDetailRow['purchaseid'];
+			$levelAmountResult = $db->view("amount", "mlm_distribution_level", 'distributionId', " and purchaseid = '$purchaseide' and membership_id = '$currentMembership_id'");
+			$levelAmountRow = $levelAmountResult['result'][0];
+
 		?>
 		<tr class="text-center has-row-actions">
 			<td data-label="Name - ">
@@ -208,8 +220,10 @@ function getAllDownlines($parent)
 				</div>-->
 			</td>
 			<td data-label="Membership ID - "><?php echo $validation->db_field_validate($registerRow['membership_id']); ?></td>
-			<td data-label="Email - "><?php echo $validation->db_field_validate($registerRow['email']); ?></td>
-			<td data-label="Mobile No. - "><?php echo $validation->db_field_validate($registerRow['mobile']); ?></td>
+			<td data-label="Business Volume - "><?php echo $validation->db_field_validate($ActivePurchaseDetailRow['business_volume']); ?></td>
+			<td data-label="Level Income - "><?php echo $validation->db_field_validate($levelAmountRow['amount']); ?></td>
+			<!-- <td data-label="Email - "><?php echo $validation->db_field_validate($registerRow['email']); ?></td> -->
+			<!-- <td data-label="Mobile No. - "><?php echo $validation->db_field_validate($registerRow['mobile']); ?></td> -->
 			<!-- <td data-label="Members - ">
 				Total Members: <?php echo $totalDownlineMember; ?>
 				<br />
